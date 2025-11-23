@@ -10,6 +10,8 @@ import TrendingTopics from "./components/TrendingTopics";
 import SuggestionsForYou from "./components/SuggestionsForYou";
 import { Post } from "./types";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+
 export default function Home() {
   const [postText, setPostText] = useState("");
   const [posts, setPosts] = useState<Post[]>([]);
@@ -17,7 +19,7 @@ export default function Home() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/posts`);
+        const response = await axios.get(`${API_URL}/api/posts`);
         setPosts(response.data.data);
       } catch (error) {
         toast.error(`Error fetching posts: ${error instanceof Error ? error.message : "Unknown error"}`);
@@ -37,7 +39,7 @@ export default function Home() {
     }
 
     try {
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/posts`, {
+      const response = await axios.post(`${API_URL}/api/posts`, {
         name: "Harshal Shinde",
         username: "huhharshal",
         body: text,
